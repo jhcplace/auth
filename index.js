@@ -87,3 +87,15 @@ fetch('https://discord.com/api/oauth2/token', {
 })
 	.then(res => res.json())
 	.then(console.log);
+
+fetch('https://discord.com/api/oauth2/token', {
+	method: 'POST',
+	body: data,
+})
+	.then(res => res.json())
+	.then(info => fetch('https://discord.com/api/users/@me', {
+		headers: {
+			authorization: `${info.token_type} ${info.access_token}`,
+		},
+	}))
+	.then(console.log);
